@@ -44,12 +44,14 @@ class _MapPageState extends State<MapPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          setState(() {
-            position = CameraPosition(
-              target: LatLng(Global.latitude, Global.longitude),
-              zoom: 16,
-            );
-          });
+          setState(
+            () {
+              position = CameraPosition(
+                target: LatLng(Global.latitude, Global.longitude),
+                zoom: 16,
+              );
+            },
+          );
           final GoogleMapController controller = await mapController.future;
           controller.animateCamera(CameraUpdate.newCameraPosition(position));
         },

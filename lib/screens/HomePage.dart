@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:location/globals/global.dart';
-
 import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,12 +28,15 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Map"),
+        title: const Text("Map",style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.blue.withOpacity(0.4),
       ),
+      backgroundColor: Colors.green.withOpacity(0.01),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            Text("${Global.latitude} , ${Global.longitude}"),
+            Text("${Global.latitude} , ${Global.longitude}",style: TextStyle(color: Colors.white),),
             OutlinedButton(
               onPressed: () async {
                 Geolocator.getPositionStream().listen((e) {
@@ -46,7 +48,7 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text("Get location"),
             ),
-            Text("$area"),
+            Text("$area",style: TextStyle(color: Colors.white),),
             OutlinedButton(
               onPressed: () async {
                 List<Placemark> placeMark = await placemarkFromCoordinates(
@@ -57,14 +59,23 @@ class _HomePageState extends State<HomePage> {
               },
               child: Text("Get Area"),
             ),
-            OutlinedButton(
-              onPressed: () async {
-                setState(() {
-                  Global.mapLocation =
-                  "https://www.google.co.in/search?q=$Global.lat,$Global.long";
-                });
-                Navigator.pushNamed(context,"Map");},
-              child: const Text("Get Live Locations"),
+            SizedBox(
+              width: 200,
+              child: OutlinedButton(
+                onPressed: () async {
+                  setState(() {
+                    Global.mapLocation =
+                    "https://www.google.co.in/search?q=$Global.lat,$Global.long";
+                  });
+                  Navigator.pushNamed(context,"Map");},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    const Text("Get Live Locations"),
+                    Icon(Icons.location_on_outlined,color: Colors.green,),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
